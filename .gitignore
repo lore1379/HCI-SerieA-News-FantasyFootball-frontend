@@ -1,0 +1,16 @@
+.angular/
+.browserslistrc
+.editorconfig
+.eslintrc.json
+.vscode/
+angular.json
+capacitor.config.ts
+ionic.config.json
+karma.conf.js
+node_modules/
+package-lock.json
+package.json
+tailwind.config.js
+tsconfig.app.json
+tsconfig.json
+tsconfig.spec.json
