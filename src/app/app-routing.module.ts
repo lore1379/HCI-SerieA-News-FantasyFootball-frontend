@@ -7,13 +7,29 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
-    path: 'news',
-    loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule)
-  },
-  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },
+  // {
+  //   path: 'news',
+  //   loadChildren: () => import('./news/news.module').then( m => m.NewsPageModule)
+  // },
+  // {
+  //   path: 'ranking',
+  //   loadChildren: () => import('./ranking/ranking.module').then( m => m.RankingPageModule)
+  // },
+  // {
+  //   path: 'fantasy',
+  //   loadChildren: () => import('./fantasy/fantasy.module').then( m => m.FantasyPageModule)
+  // },
+  // {
+  //   path: 'live',
+  //   loadChildren: () => import('./live/live.module').then( m => m.LivePageModule)
+  // },
+  {
+    path: 'app',
+    loadChildren: () => import('./general/general.module').then( m => m.GeneralPageModule)
   },
 ];
 
