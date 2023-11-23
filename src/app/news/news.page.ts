@@ -11,6 +11,8 @@ export class NewsPage implements OnInit {
 
   userName: string = "";
 
+  selectedSegment: string = 'all'; // Default segment
+
   constructor(private oauthService: OAuthService, private router: Router) { }
 
   ngOnInit() {
