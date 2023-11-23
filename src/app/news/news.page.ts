@@ -14,7 +14,6 @@ export class NewsPage implements OnInit {
   constructor(private oauthService: OAuthService, private router: Router) { }
 
   ngOnInit() {
-    console.log(this.userName)
   }
 
   logout() {
@@ -24,11 +23,9 @@ export class NewsPage implements OnInit {
 
   get accessToken() {
     let claims: any = this.oauthService.getIdentityClaims();
-    console.log(claims)
     if (claims != null) {
       this.userName = claims.given_name;
     }
-    console.log(this.userName);
     return this.oauthService.getAccessToken();
   }
 
