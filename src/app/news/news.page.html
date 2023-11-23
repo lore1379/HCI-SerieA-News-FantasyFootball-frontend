@@ -1,0 +1,45 @@
+<ion-menu side="end" contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>{{userName}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ion-menu-toggle>
+      <ion-button (click)="logout()">Logout</ion-button>
+    </ion-menu-toggle>
+  </ion-content>
+</ion-menu>
+<div class="ion-page" id="main-content">
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-title>Serie A News</ion-title>
+      <ion-buttons *ngIf="accessToken" slot="end">
+        <ion-menu-toggle>
+          <ion-button fill="solid">
+            <ion-icon slot="start" name="person-circle"></ion-icon>
+            <span>{{userName}}</span>
+          </ion-button>
+        </ion-menu-toggle>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar>
+      <ion-segment value="all">
+        <ion-segment-button value="all">
+          <ion-label class="text-xs">News</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="favorites">
+          <ion-label class="text-xs">Your Team News</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content [fullscreen]="true">
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large">news</ion-title>
+      </ion-toolbar>
+    </ion-header>
+  </ion-content>
+</div>
