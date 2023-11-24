@@ -9,13 +9,13 @@
     </div>
 
     <div *ngIf="!accessToken" class="m-4">
-      <button (click)="login()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-lg">
-        <span class="mx-4">Sign In / Sign Up</span>
-        <ion-icon class="align-middle" name="log-in-outline" size="large"></ion-icon>
-      </button>
+      <ion-button (click)="login()" class="m-4 text-lg">
+        Sign In / Sign Up
+        <ion-icon name="log-in-outline" size="large"></ion-icon>
+      </ion-button>
     </div>
     <div *ngIf="accessToken" class="m-4">
-      <ion-button>
+      <ion-button class="text-lg">
         <a routerLink="/app">Enter the App!</a>
       </ion-button>
     </div>

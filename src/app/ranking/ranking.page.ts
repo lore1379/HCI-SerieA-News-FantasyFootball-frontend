@@ -11,9 +11,28 @@ export class RankingPage implements OnInit {
 
   userName: string = "";
 
+  selectedSegment: string = 'ranking'; // Default segment
+
+  // sample data to try layouts
+  data: any[] = [
+    { homeTeam: 'Sassuolo', homeScore: 2, awayTeam: 'Salernitana', awayScore: 2, dateName: 'Ven 10/11'},
+    { homeTeam: 'Sassuolo', homeScore: 2, awayTeam: 'Salernitana', awayScore: 2, dateName: 'Ven 10/11'},
+    { homeTeam: 'Sassuolo', homeScore: 2, awayTeam: 'Salernitana', awayScore: 2, dateName: 'Ven 10/11'},
+    { homeTeam: 'Sassuolo', homeScore: 2, awayTeam: 'Salernitana', awayScore: 2, dateName: 'Ven 10/11'},
+    { homeTeam: 'Sassuolo', homeScore: 2, awayTeam: 'Salernitana', awayScore: 2, dateName: 'Ven 10/11'},
+  ];
+
+  // reorganize data in 2D structure
+  reorganizedData: any[][] = [];
+  itemsPerRow: number = 2;
+
   constructor(private oauthService: OAuthService, private router: Router) { }
 
   ngOnInit() {
+    for (let i = 0; i < this.data.length; i += this.itemsPerRow) {
+      this.reorganizedData.push(this.data.slice(i, i + this.itemsPerRow));
+    }
+    console.log(this.reorganizedData)
   }
 
   logout() {

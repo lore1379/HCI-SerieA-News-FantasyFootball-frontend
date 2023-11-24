@@ -10,6 +10,7 @@
     </ion-menu-toggle>
   </ion-content>
 </ion-menu>
+
 <div class="ion-page" id="main-content">
   <ion-header [translucent]="true">
     <ion-toolbar>
@@ -24,25 +25,127 @@
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
+
   <ion-toolbar>
-    <ion-segment value="all">
-      <ion-segment-button value="all">
+    <ion-segment [(ngModel)]="selectedSegment">
+      <ion-segment-button value="ranking">
         <ion-label class="text-xs whitespace-normal">Ranking</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="favorites">
+      <ion-segment-button value="played">
         <ion-label class="text-xs whitespace-normal">Played Matches</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="favorites">
+      <ion-segment-button value="upcoming">
         <ion-label class="text-xs whitespace-normal">Upcoming Matches</ion-label>
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 
   <ion-content [fullscreen]="true">
-    <ion-header collapse="condense">
-      <ion-toolbar>
-        <ion-title size="large">Ranking</ion-title>
-      </ion-toolbar>
-    </ion-header>
+
+    <!-- Ranking container -->
+    <ng-container *ngIf="selectedSegment === 'ranking'">
+      <ion-grid>
+        <ion-row class="header-row">
+          <ion-col size="1">
+          </ion-col>
+          <ion-col size="5">
+            Club
+          </ion-col>
+          <ion-col size="1">
+            Pl
+          </ion-col>
+          <ion-col size="1">
+            W
+          </ion-col>
+          <ion-col size="1">
+            D
+          </ion-col>
+          <ion-col size="1">
+            L
+          </ion-col>
+          <ion-col size="2">
+            Pts
+          </ion-col>
+        </ion-row>
+
+        <!-- TO DO WHEN I RETREIVE DATA FROM DB
+          <ion-row *ngFor="let row of data; let i = index">
+          <ion-col size="1">
+            i
+          </ion-col>
+          <ion-col size="5">
+            {{row.name}}
+          </ion-col>
+          <ion-col size="1">
+            {{row.played}}
+          </ion-col>
+          <ion-col size="1">
+            {{row.win}}
+          </ion-col>
+          <ion-col size="1">
+            {{row.draw}}
+          </ion-col>
+          <ion-col size="1">
+            {{row.lose}}
+          </ion-col>
+          <ion-col size="2">
+            {{row.points}}
+          </ion-col>
+        </ion-row> -->
+
+      </ion-grid>
+    </ng-container>
+    
+    <!-- Played Matches container -->
+    <ng-container *ngIf="selectedSegment === 'played'">
+      <ion-grid>
+        <ion-row *ngFor="let row of reorganizedData">
+          <ion-col *ngFor="let item of row" class="border-2 border-gray-400">
+            <ion-row class="border-b-2 border-gray-400">
+                {{ item.dateName }}
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                {{ item.homeTeam }}
+              </ion-col>
+              <ion-col size="1" class="mr-1">
+                {{ item.homeScore }}
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                {{ item.awayTeam }}
+              </ion-col>
+              <ion-col size="1" class="mr-1">
+                {{ item.awayScore }}
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ng-container>
+
+    <!-- Upcoming Matches container -->
+    <ng-container *ngIf="selectedSegment === 'upcoming'">
+      <ion-grid>
+        <ion-row *ngFor="let row of reorganizedData">
+          <ion-col *ngFor="let item of row" class="border-2 border-gray-400">
+            <ion-row class="border-b-2 border-gray-400">
+                {{ item.dateName }}
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                {{ item.homeTeam }}
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                {{ item.awayTeam }}
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ng-container>
   </ion-content>
 </div>
