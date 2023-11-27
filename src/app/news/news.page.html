@@ -14,14 +14,14 @@
 <div class="ion-page" id="main-content">
   <ion-header [translucent]="true">
     <ion-toolbar>
-      <ion-title>Serie A News</ion-title>
+      <ion-title>
+        Serie A News
+        <ion-icon name="football-outline"></ion-icon>
+      </ion-title>
       <ion-buttons *ngIf="accessToken" slot="end">
-        <ion-menu-toggle>
-          <ion-button fill="solid">
-            <ion-icon slot="start" name="person-circle"></ion-icon>
-            <span>{{userName}}</span>
-          </ion-button>
-        </ion-menu-toggle>
+        <ion-menu-button>
+          <ion-icon size="large" name="person-circle"></ion-icon>
+        </ion-menu-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>

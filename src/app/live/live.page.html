@@ -15,12 +15,9 @@
     <ion-toolbar>
       <ion-title>Live Matches</ion-title>
       <ion-buttons *ngIf="accessToken" slot="end">
-        <ion-menu-toggle>
-          <ion-button fill="solid">
-            <ion-icon slot="start" name="person-circle"></ion-icon>
-            <span>{{userName}}</span>
-          </ion-button>
-        </ion-menu-toggle>
+        <ion-menu-button>
+          <ion-icon size="large" name="person-circle"></ion-icon>
+        </ion-menu-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>

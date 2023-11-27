@@ -16,12 +16,9 @@
     <ion-toolbar>
       <ion-title>Serie A Ranking</ion-title>
       <ion-buttons *ngIf="accessToken" slot="end">
-        <ion-menu-toggle>
-          <ion-button fill="solid">
-            <ion-icon slot="start" name="person-circle"></ion-icon>
-            <span>{{userName}}</span>
-          </ion-button>
-        </ion-menu-toggle>
+        <ion-menu-button>
+          <ion-icon size="large" name="person-circle"></ion-icon>
+        </ion-menu-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
@@ -45,7 +42,7 @@
     <!-- Ranking container -->
     <ng-container *ngIf="selectedSegment === 'ranking'">
       <ion-grid>
-        <ion-row class="header-row">
+        <ion-row class="header-row border-b-2 border-gray-400">
           <ion-col size="1">
           </ion-col>
           <ion-col size="5">
