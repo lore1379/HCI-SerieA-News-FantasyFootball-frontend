@@ -10,6 +10,7 @@
     </ion-menu-toggle>
   </ion-content>
 </ion-menu>
+
 <div class="ion-page" id="main-content">
   <ion-header [translucent]="true">
     <ion-toolbar>
@@ -23,11 +24,93 @@
   </ion-header>
 
   <ion-content [fullscreen]="true">
-    <ion-header collapse="condense">
-      <ion-toolbar>
-        <ion-title size="large">Live Matches</ion-title>
-      </ion-toolbar>
-    </ion-header>
+
+    <ion-card class="bg-gray-300 rounded-lg">
+    
+      <ion-card-header class="border-b-2 border-gray-500">
+        <ion-row>
+          <ion-badge color="danger">Live</ion-badge>
+        </ion-row>
+      </ion-card-header>
+  
+      <ion-card-content class="ion-padding">
+        <ion-grid>
+          <ion-row class="text-center text-black text-xl font-bold">
+            <ion-col>
+              <div class="w-[80px] h-[80px] flex justify-center rounded-[50%] bg-gray-400 shadow-lg m-auto">
+                <ion-img class="w-[50%]" src="assets/imgs/Milan.png"></ion-img>
+              </div>
+              <ion-label>Milan</ion-label>
+            </ion-col>
+            <ion-col>
+              <div class="my-4 text-3xl">
+                <ion-label>0</ion-label>
+                <ion-label>:</ion-label>
+                <ion-label>0</ion-label>
+              </div>
+              <ion-label>45'</ion-label>
+            </ion-col>
+            <ion-col>
+              <div class="w-[80px] h-[80px] flex justify-center rounded-[50%] bg-gray-400 shadow-lg m-auto">
+                <ion-img class="w-[50%]" src="assets/imgs/Inter.png"></ion-img>
+              </div>
+              <ion-label>Inter</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+      <ion-button (click)="displayStats()" expand="block">
+        Toggle Match Statistics
+      </ion-button>
+      <ion-list *ngIf="isOpen">
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="3">
+                30%
+              </ion-col>
+              <ion-col>
+                Ball Possession(%)
+              </ion-col>
+              <ion-col size="3" class="ion-text-end">
+                70%
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-progress-bar reversed="true" [value]="0.3"></ion-progress-bar>
+              </ion-col>
+              <ion-col>
+                <ion-progress-bar [value]="0.7" color="danger"></ion-progress-bar>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="3">
+                3
+              </ion-col>
+              <ion-col>
+                Shots off target
+              </ion-col>
+              <ion-col size="3" class="ion-text-end">
+                7
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-progress-bar reversed="true" [value]="0.3"></ion-progress-bar>
+              </ion-col>
+              <ion-col>
+                <ion-progress-bar [value]="0.7" color="danger"></ion-progress-bar>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </ion-card>
   </ion-content>
 </div>
 

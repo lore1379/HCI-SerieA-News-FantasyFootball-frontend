@@ -11,6 +11,8 @@ export class LivePage implements OnInit {
 
   userName: string = "";
 
+  isOpen!: boolean;
+
   constructor(private oauthService: OAuthService, private router: Router) { }
 
   ngOnInit() {
@@ -19,6 +21,13 @@ export class LivePage implements OnInit {
   logout() {
     this.oauthService.logOut();
     this.router.navigate(['/home']);
+  }
+
+  displayStats() {
+    if (!this.isOpen)
+      this.isOpen = true;
+    else 
+      this.isOpen = false;
   }
 
   get accessToken() {
