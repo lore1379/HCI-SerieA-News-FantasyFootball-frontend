@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { Team } from '../model/team.model';
+import { RankingService } from '../services/ranking.service';
+import { Subscription } from 'rxjs';
+import { Match } from '../model/match.model';
 
 @Component({
   selector: 'app-ranking',
@@ -13,26 +17,53 @@ export class RankingPage implements OnInit {
 
   selectedSegment: string = 'ranking'; // Default segment
 
-  // sample data to try layouts
-  data: any[] = [
-    { homeTeam: 'Sassuolo', homeScore: 2, awayTeam: 'Salernitana', awayScore: 2, dateName: 'Ven 10/11'},
-    { homeTeam: 'Sassuolo', homeScore: 2, awayTeam: 'Salernitana', awayScore: 2, dateName: 'Ven 10/11'},
-    { homeTeam: 'Sassuolo', homeScore: 2, awayTeam: 'Salernitana', awayScore: 2, dateName: 'Ven 10/11'},
-    { homeTeam: 'Sassuolo', homeScore: 2, awayTeam: 'Salernitana', awayScore: 2, dateName: 'Ven 10/11'},
-    { homeTeam: 'Sassuolo', homeScore: 2, awayTeam: 'Salernitana', awayScore: 2, dateName: 'Ven 10/11'},
-  ];
+  teamsList!: Array<Team>;
+  rankingSubscription: Subscription | undefined;
+
+  playedMatchesList!: Array<Match>
+  upcomingMatchesList!: Array<Match>
 
   // reorganize data in 2D structure
-  reorganizedData: any[][] = [];
+  playedMatchesList2D: any[][] = [];
+  upcomingMatchesList2D: any[][] = [];
   itemsPerRow: number = 2;
 
-  constructor(private oauthService: OAuthService, private router: Router) { }
+  constructor(
+    private oauthService: OAuthService, 
+    private router: Router,
+    private rankingService: RankingService) { }
 
   ngOnInit() {
-    for (let i = 0; i < this.data.length; i += this.itemsPerRow) {
-      this.reorganizedData.push(this.data.slice(i, i + this.itemsPerRow));
-    }
-    console.log(this.reorganizedData)
+    this.getTeams();
+    this.getPlayedMatches();
+    this.getUpcomingMatches();
+  }
+
+  getTeams(): void {
+    this.rankingSubscription = this.rankingService.getAllTeams()
+      .subscribe((_teams) => {
+        this.teamsList = _teams;
+    });
+  }
+
+  getPlayedMatches(): void {
+    this.rankingSubscription = this.rankingService.getPlayedMatches()
+      .subscribe((_playedMatches) => {
+        this.playedMatchesList = _playedMatches;
+        for (let i = 0; i < this.playedMatchesList.length; i += this.itemsPerRow) {
+          this.playedMatchesList2D.push(this.playedMatchesList.slice(i, i + this.itemsPerRow));
+        }
+    });
+  }
+
+  getUpcomingMatches(): void {
+    this.rankingSubscription = this.rankingService.getUpcomingMatches()
+      .subscribe((_upcomingMatches) => {
+        this.upcomingMatchesList = _upcomingMatches;
+        for (let i = 0; i < this.upcomingMatchesList.length; i += this.itemsPerRow) {
+          this.upcomingMatchesList2D.push(this.upcomingMatchesList.slice(i, i + this.itemsPerRow));
+        }
+    });
   }
 
   logout() {

@@ -42,7 +42,7 @@
     <!-- Ranking container -->
     <ng-container *ngIf="selectedSegment === 'ranking'">
       <ion-grid>
-        <ion-row class="header-row border-b-2 border-gray-400">
+        <ion-row class="header-row border-b-2 border-gray-300">
           <ion-col size="1">
           </ion-col>
           <ion-col size="5">
@@ -65,30 +65,29 @@
           </ion-col>
         </ion-row>
 
-        <!-- TO DO WHEN I RETREIVE DATA FROM DB
-          <ion-row *ngFor="let row of data; let i = index">
+        <ion-row *ngFor="let team of teamsList; let i = index" class="border-b-2 border-gray-600">
           <ion-col size="1">
-            i
+            {{i+1}}
           </ion-col>
           <ion-col size="5">
-            {{row.name}}
+            {{team.name}}
           </ion-col>
           <ion-col size="1">
-            {{row.played}}
+            {{team.matchPlayed}}
           </ion-col>
           <ion-col size="1">
-            {{row.win}}
+            {{team.wins}}
           </ion-col>
           <ion-col size="1">
-            {{row.draw}}
+            {{team.draws}}
           </ion-col>
           <ion-col size="1">
-            {{row.lose}}
+            {{team.losses}}
           </ion-col>
           <ion-col size="2">
-            {{row.points}}
+            {{team.points}}
           </ion-col>
-        </ion-row> -->
+        </ion-row>
 
       </ion-grid>
     </ng-container>
@@ -96,25 +95,25 @@
     <!-- Played Matches container -->
     <ng-container *ngIf="selectedSegment === 'played'">
       <ion-grid>
-        <ion-row *ngFor="let row of reorganizedData">
+        <ion-row *ngFor="let row of playedMatchesList2D">
           <ion-col *ngFor="let item of row" class="border-2 border-gray-400">
             <ion-row class="border-b-2 border-gray-400">
-                {{ item.dateName }}
+                {{ item.date }}
             </ion-row>
             <ion-row>
               <ion-col>
-                {{ item.homeTeam }}
+                {{ item.homeTeamName }}
               </ion-col>
               <ion-col size="1" class="mr-1">
-                {{ item.homeScore }}
+                {{ item.scoreH }}
               </ion-col>
             </ion-row>
             <ion-row>
               <ion-col>
-                {{ item.awayTeam }}
+                {{ item.awayTeamName }}
               </ion-col>
               <ion-col size="1" class="mr-1">
-                {{ item.awayScore }}
+                {{ item.scoreA }}
               </ion-col>
             </ion-row>
           </ion-col>
@@ -125,19 +124,19 @@
     <!-- Upcoming Matches container -->
     <ng-container *ngIf="selectedSegment === 'upcoming'">
       <ion-grid>
-        <ion-row *ngFor="let row of reorganizedData">
+        <ion-row *ngFor="let row of upcomingMatchesList2D">
           <ion-col *ngFor="let item of row" class="border-2 border-gray-400">
             <ion-row class="border-b-2 border-gray-400">
-                {{ item.dateName }}
+                {{ item.date }}
             </ion-row>
             <ion-row>
               <ion-col>
-                {{ item.homeTeam }}
+                {{ item.homeTeamName }}
               </ion-col>
             </ion-row>
             <ion-row>
               <ion-col>
-                {{ item.awayTeam }}
+                {{ item.awayTeamName }}
               </ion-col>
             </ion-row>
           </ion-col>
