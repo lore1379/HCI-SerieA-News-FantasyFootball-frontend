@@ -30,7 +30,6 @@ export class HomePage {
   }
   
   get accessToken() {
-    console.log(this.oauthService.getAccessToken())
     return this.oauthService.getAccessToken();
   }
 }
