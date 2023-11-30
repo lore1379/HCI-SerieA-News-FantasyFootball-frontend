@@ -1,8 +1,11 @@
+import { FantasyService } from './../services/fantasy.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonModal } from '@ionic/angular';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { OverlayEventDetail } from '@ionic/core/components';
+import { Subscription } from 'rxjs';
+import { Player } from '../model/player.model';
 
 @Component({
   selector: 'app-fantasy',
@@ -21,53 +24,58 @@ export class FantasyPage implements OnInit {
 
   selectedRole: string = 'gk'; // Default role
 
-  // sample data to try layouts
-  data: any[] = [
-    { playerName: 'Gabriele', playerScore: 6},
-    { playerName: 'Damiano', playerScore: 6},
-    { playerName: 'Lorenzo', playerScore: 9},
-    { playerName: 'Mich', playerScore: 2},
-    { playerName: 'Elias', playerScore: 6},
-  ];
+  fantasySubscription!: Subscription;
+  playersList!: Array<Player>
 
-  // Sample array of goalkeepers
-  freeGoalkeepers: any[] = [
-    { name: 'GoalKeeper 1', role: '(GK)' },
-    { name: 'GoalKeeper 2', role: '(GK)' },
-    { name: 'GoalKeeper 3', role: '(GK)' },
-  ];
+  inTeamPlayers: any[] = [];
 
-  inTeamGoalkeepers: any[] = [
-    { name: 'prova' },
-  ]
+  selectedPlayer: any;
 
-  selectedGoalkeeper: any;
-
-  constructor(private oauthService: OAuthService, private router: Router) { }
+  constructor(
+    private oauthService: OAuthService, 
+    private router: Router,
+    private fantasyService: FantasyService) { }
 
   ngOnInit() {
+    this.getPlayers();
+    console.log(this.getPlayersByRole('GK'));
+  }
+
+  getPlayers(): void {
+    this.fantasySubscription = this.fantasyService.getPlayers()
+      .subscribe((_players) => {
+        this.playersList = _players.map(player => ({
+          ...player,
+          isSelected: false,
+        }));
+        console.log(this.playersList)
+    });
   }
 
   cancel() {
-    console.log('Cancel button clicked');
     this.modal.dismiss(null, 'cancel');
   }
 
   confirm() {
-    this.modal.dismiss(this.selectedGoalkeeper, 'confirm');
-    console.log(this.selectedGoalkeeper);
-    this.inTeamGoalkeepers.push(this.selectedGoalkeeper);
-  }
+    this.modal.dismiss(null, 'confirm');
+    console.log(this.playersList);
 
-  cancel1() {
-    console.log('Cancel button clicked');
-    this.modal.dismiss(null, 'cancel');
-  }
+    // Create a copy of the array
+    const playersCopy = [...this.playersList];
 
-  confirm1() {
-    this.modal.dismiss(this.selectedGoalkeeper, 'confirm');
-    console.log(this.selectedGoalkeeper);
-    this.inTeamGoalkeepers.push(this.selectedGoalkeeper);
+    for (const player of playersCopy ) {
+      if (player.isSelected) {
+        // remove element from player list
+        const index = this.playersList.findIndex(p => p === player);
+        if (index > -1) {
+          this.playersList.splice(index, 1)
+        }
+        // add element to team
+        this.inTeamPlayers.push(player);
+      }
+    }
+    console.log(this.playersList);
+    console.log(this.inTeamPlayers);
   }
 
   onWillDismiss(event: Event) {
@@ -75,6 +83,10 @@ export class FantasyPage implements OnInit {
     if (ev.detail.role === 'confirm') {
       this.message = `Hello, ${ev.detail.data}!`;
     }
+  }
+
+  getPlayersByRole(role: string): Player[] {
+    return this.inTeamPlayers.filter(player => player.role === role);
   }
 
   logout() {
