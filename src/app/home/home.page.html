@@ -4,13 +4,13 @@
       <img src="assets/imgs/seriealogo.jpg" class="w-1/2 h-auto">
     </div>
 
-    <div class="m-8 flex-col text-2xl text-center">
+    <div class="mb-8 flex-col text-2xl text-center">
       <div class="mb-3">Welcome to</div>
-      <div><div class="font-bold">Serie A News</div>&</div>  
+      <div class="font-bold">Serie A News &</div>  
       <div class="font-bold">Fantasy Football</div>
     </div>
 
-    <div *ngIf="!accessToken" class="m-4">
+    <div *ngIf="!accessToken" class="mb-4">
       <ion-button (click)="login()" class="m-4 text-lg">
         Sign In / Sign Up
         <ion-icon name="log-in-outline" size="large"></ion-icon>

@@ -38,7 +38,6 @@ export class FantasyPage implements OnInit {
 
   ngOnInit() {
     this.getPlayers();
-    console.log(this.getPlayersByRole('GK'));
   }
 
   getPlayers(): void {
@@ -48,7 +47,6 @@ export class FantasyPage implements OnInit {
           ...player,
           isSelected: false,
         }));
-        console.log(this.playersList)
     });
   }
 
@@ -58,7 +56,6 @@ export class FantasyPage implements OnInit {
 
   confirm() {
     this.modal.dismiss(null, 'confirm');
-    console.log(this.playersList);
 
     // Create a copy of the array
     const playersCopy = [...this.playersList];
@@ -74,8 +71,6 @@ export class FantasyPage implements OnInit {
         this.inTeamPlayers.push(player);
       }
     }
-    console.log(this.playersList);
-    console.log(this.inTeamPlayers);
   }
 
   onWillDismiss(event: Event) {
